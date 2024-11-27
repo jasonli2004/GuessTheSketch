@@ -84,7 +84,9 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -118,7 +120,17 @@ fun SketchScreen(
     val context = LocalContext.current
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF6A11CB), // Rich Violet
+                        Color(0xFF2575FC)  // Soft Blue
+                    )
+                )
+            )
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -128,7 +140,8 @@ fun SketchScreen(
             style = TextStyle(
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp
-            )
+            ),
+            color = Color.White
         )
         CountdownTimer(totalTime = time, onTimerFinish = {
             val bitmap = captureCanvasContentAsBitmap(
@@ -183,160 +196,171 @@ fun SketchScreen(
                 Text("Save Sketch")
             }
         }
-        Row(
-
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-
-        ){
-//        Text(text = "Stroke Width: ${String.format("%.2f", viewModel.sliderValue.value)}")
-            Text(text = "Width: ", style = TextStyle(fontWeight = FontWeight.Bold))
-            Slider(
-                value = sliderValue.value,
-                onValueChange = { newValue ->
-                    viewModel.updateSliderValue(newValue)
-                    viewModel.updateStrokeWidth(newValue * strokeScale)
-                },
-                valueRange = 0.2f..1.2f, // Minimum and maximum values
-                steps = 15, // Number of discrete steps between min and max (optional)
-                modifier = Modifier.padding(horizontal = 3.dp)
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 65.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            ColoredButton(
-                color = Color.Black,
-                onClick = {
-                    viewModel.updateColor(Color.Black)
-                    viewModel.updateButtonSelected(0)
-                },
-                viewModel.buttonSelected,
-                buttonId = 0,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color.Red,
-                onClick = {
-                    viewModel.updateColor(Color.Red)
-                    viewModel.updateButtonSelected(1)
-                },
-                viewModel.buttonSelected,
-                buttonId = 1,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color(0xFFFFA500),
-                onClick = {
-                    viewModel.updateColor(Color(0xFFFFA500))
-                    viewModel.updateButtonSelected(2)
-                },
-                viewModel.buttonSelected,
-                buttonId = 2,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color.Yellow,
-                onClick = {
-                    viewModel.updateColor(Color.Yellow)
-                    viewModel.updateButtonSelected(3)
-                },
-                viewModel.buttonSelected,
-                buttonId = 3,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color.Green,
-                onClick = {
-                    viewModel.updateColor(Color.Green)
-                    viewModel.updateButtonSelected(4)
-                },
-                viewModel.buttonSelected,
-                buttonId = 4,
-                modifier = Modifier.weight(1f)
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 65.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            ColoredButton(
-                color = Color.Cyan,
-                onClick = {
-                    viewModel.updateColor(Color.Cyan)
-                    viewModel.updateButtonSelected(5)
-                },
-                viewModel.buttonSelected,
-                buttonId = 5,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color.Blue,
-                onClick = {
-                    viewModel.updateColor(Color.Blue)
-                    viewModel.updateButtonSelected(6)
-                },
-                viewModel.buttonSelected,
-                buttonId = 6,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color.Magenta,
-                onClick = {
-                    viewModel.updateColor(Color.Magenta)
-                    viewModel.updateButtonSelected(7)
-                },
-                viewModel.buttonSelected,
-                buttonId = 7,
-                modifier = Modifier.weight(1f)
-            )
-            ColoredButton(
-                color = Color.Gray,
-                onClick = {
-                    viewModel.updateColor(Color.Gray)
-                    viewModel.updateButtonSelected(8)
-                },
-                viewModel.buttonSelected,
-                buttonId = 8,
-                modifier = Modifier.weight(1f)
-            )
-            ImageButton(
-                color = Color.White,
-                onClick = {
-                    viewModel.updateColor(Color.White)
-                    viewModel.updateButtonSelected(9)
-                },
-                viewModel.buttonSelected,
-                buttonId = 9,
-                modifier = Modifier.weight(1f),
-                image = R.drawable.erasers
-            )
-        }
-        Button(onClick = {viewModel.deleteAllPath()}, modifier = Modifier.padding(5.dp).height(50.dp).wrapContentWidth(), colors = Color(
-            0xC8F9A825
-        ).let { ButtonDefaults.buttonColors(containerColor = it) }
-        )
-        {
+        if (viewModel.gameStart.value) {
             Row(
-                verticalAlignment = Alignment.CenterVertically, // Aligns image and text vertically
-                horizontalArrangement = Arrangement.Center, // Centers the content in the row
-                modifier = Modifier.wrapContentWidth() // Ensures the row fills the button
+
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.clear),
-                    contentDescription = "Clear",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.size(24.dp) // Sets a consistent icon size
+//        Text(text = "Stroke Width: ${String.format("%.2f", viewModel.sliderValue.value)}")
+                Text(text = "Width: ", style = TextStyle(fontWeight = FontWeight.Bold), color = Color.White)
+                Slider(
+                    value = sliderValue.value,
+                    onValueChange = { newValue ->
+                        viewModel.updateSliderValue(newValue)
+                        viewModel.updateStrokeWidth(newValue * strokeScale)
+                    },
+                    valueRange = 0.2f..1.2f, // Minimum and maximum values
+                    steps = 15, // Number of discrete steps between min and max
+                    modifier = Modifier.padding(horizontal = 3.dp),
+                    colors = SliderDefaults.colors(
+                        thumbColor = Color.White, // Gold thumb for vibrancy
+                        activeTrackColor = Color(0xFF6dd5ed), // Sky Blue to align with gradient
+                        inactiveTrackColor = Color.White, // Teal for subtle contrast
+                        activeTickColor = Color.Transparent, // Removes unnecessary ticks
+                        inactiveTickColor = Color.Transparent // Removes unnecessary ticks
+                    )
                 )
-                Spacer(modifier = Modifier.width(8.dp)) // Adds spacing between the icon and text
-                Text(
-                    text = "Clear",
+
+
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 65.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                ColoredButton(
+                    color = Color.Black,
+                    onClick = {
+                        viewModel.updateColor(Color.Black)
+                        viewModel.updateButtonSelected(0)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 0,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color.Red,
+                    onClick = {
+                        viewModel.updateColor(Color.Red)
+                        viewModel.updateButtonSelected(1)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 1,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color(0xFFFFA500),
+                    onClick = {
+                        viewModel.updateColor(Color(0xFFFFA500))
+                        viewModel.updateButtonSelected(2)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 2,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color.Yellow,
+                    onClick = {
+                        viewModel.updateColor(Color.Yellow)
+                        viewModel.updateButtonSelected(3)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 3,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color.Green,
+                    onClick = {
+                        viewModel.updateColor(Color.Green)
+                        viewModel.updateButtonSelected(4)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 4,
+                    modifier = Modifier.weight(1f)
                 )
             }
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 65.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                ColoredButton(
+                    color = Color.Cyan,
+                    onClick = {
+                        viewModel.updateColor(Color.Cyan)
+                        viewModel.updateButtonSelected(5)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 5,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color.Blue,
+                    onClick = {
+                        viewModel.updateColor(Color.Blue)
+                        viewModel.updateButtonSelected(6)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 6,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color.Magenta,
+                    onClick = {
+                        viewModel.updateColor(Color.Magenta)
+                        viewModel.updateButtonSelected(7)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 7,
+                    modifier = Modifier.weight(1f)
+                )
+                ColoredButton(
+                    color = Color.Gray,
+                    onClick = {
+                        viewModel.updateColor(Color.Gray)
+                        viewModel.updateButtonSelected(8)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 8,
+                    modifier = Modifier.weight(1f)
+                )
+                ImageButton(
+                    color = Color.White,
+                    onClick = {
+                        viewModel.updateColor(Color.White)
+                        viewModel.updateButtonSelected(9)
+                    },
+                    viewModel.buttonSelected,
+                    buttonId = 9,
+                    modifier = Modifier.weight(1f),
+                    image = R.drawable.erasers
+                )
+            }
+            Button(onClick = { viewModel.deleteAllPath() },
+                modifier = Modifier.padding(5.dp).height(50.dp).wrapContentWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                )
+            {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically, // Aligns image and text vertically
+                    horizontalArrangement = Arrangement.Center, // Centers the content in the row
+                    modifier = Modifier.wrapContentWidth() // Ensures the row fills the button
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.clear),
+                        contentDescription = "Clear",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(24.dp) // Sets a consistent icon size
+                    )
+                    Spacer(modifier = Modifier.width(8.dp)) // Adds spacing between the icon and text
+                    Text(
+                        text = "Clear",
+                        color = Color.Black
+                    )
+                }
+            }
         }
-
 
         if (gameStart.value) {
             Button(
@@ -344,9 +368,12 @@ fun SketchScreen(
                     time.value = 1
                 },
                 modifier = Modifier.padding(16.dp),
-                colors = Color(0xE8CBA107).let { ButtonDefaults.buttonColors(containerColor = it) }
+                colors = Color(0xFFFFD700).let { ButtonDefaults.buttonColors(containerColor = it) }
             ) {
-                Text("Submit")
+                Text(
+                    text = "Submit",
+                    style = TextStyle(fontWeight = FontWeight.Bold)
+                )
             }
         }
         else{
@@ -358,7 +385,7 @@ fun SketchScreen(
                 colors = Color(0xFFF9A825).let { ButtonDefaults.buttonColors(containerColor = it) }
 
             ){
-                Text("Start")
+                Text("New Game")
             }
         }
 
@@ -447,7 +474,7 @@ fun ColoredButton(color : Color, onClick: (newColor: Color) -> Unit, buttonSelec
                 BorderStroke(2.dp, Color.White)
             }
             else{
-                BorderStroke(2.dp, Color.Black)
+                BorderStroke(2.dp, Color.White)
             }
         } else null,
         modifier = modifier.aspectRatio(1f).padding(5.dp),
@@ -557,7 +584,8 @@ fun CountdownTimer(totalTime: MutableState<Int>, onTimerFinish: () -> Unit, laun
     }
     Text(
         text = "Time left: $timeLeft seconds",
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
+        color = Color.White
     )
 }
 

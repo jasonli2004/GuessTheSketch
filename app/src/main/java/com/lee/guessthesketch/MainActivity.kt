@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import com.lee.guessthesketch.ui.navigation.Screen
 import com.lee.guessthesketch.ui.screen.AboutScreen
 import com.lee.guessthesketch.ui.screen.LevelSelectScreen
+import com.lee.guessthesketch.ui.screen.login.LoginScreen
 import com.lee.guessthesketch.ui.theme.GuessTheSketchTheme
 
 class MainActivity : ComponentActivity() {
