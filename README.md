@@ -14,19 +14,19 @@
 Here are some screenshots showcasing the app in action:
 
 ### Main Menu
-![Main Menu](demo_pic/sc1.png)
+<img src="demo_pic/sc1.png" alt="Main Menu" width="300">
 
 ### Level Selection
-![Level Selection](demo_pic/sc2.png)
+<img src="demo_pic/sc2.png" alt="Level Selection" width="300">
 
 ### Sketching Canvas
-![Sketching Canvas](demo_pic/sc3.png)
+<img src="demo_pic/sc3.png" alt="Sketching Canvas" width="300">
 
 ### AI Guess Results
-![AI Guess Results](demo_pic/sc4.png)
+<img src="demo_pic/sc4.png" alt="AI Guess Results" width="300">
 
 ### Sketch Saved Confirmation
-![Sketch Saved](demo_pic/sc5.png)
+<img src="demo_pic/sc5.png" alt="Sketch Saved" width="300">
 
 ## 🛠️ Architecture
 The app leverages **ViewModel architecture** to ensure robust state management and seamless UI interactions.
