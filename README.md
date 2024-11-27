@@ -10,6 +10,24 @@
 - **Save Sketches:** Save your sketches locally for future reference. *(Under development)*
 - **Leaderboards:** Compete with friends and track your progress with cloud-based leaderboards. *(Under development)*
 
+## 🖼️ Demo
+Here are some screenshots showcasing the app in action:
+
+### Main Menu
+![Main Menu](demo_pic/sc1.png)
+
+### Level Selection
+![Level Selection](demo_pic/sc2.png)
+
+### Sketching Canvas
+![Sketching Canvas](demo_pic/sc3.png)
+
+### AI Guess Results
+![AI Guess Results](demo_pic/sc4.png)
+
+### Sketch Saved Confirmation
+![Sketch Saved](demo_pic/sc5.png)
+
 ## 🛠️ Architecture
 The app leverages **ViewModel architecture** to ensure robust state management and seamless UI interactions.
 
