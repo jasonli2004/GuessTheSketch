@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "789768817622",
+    "project_id": "guess-the-sketchs",
+    "storage_bucket": "guess-the-sketchs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789768817622:android:99c3ccadb8bd99400a7277",
+        "android_client_info": {
+          "package_name": "com.lee.guessthesketch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR5sygmO0amniRYSGmKpGRZAHWOCcdC68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
