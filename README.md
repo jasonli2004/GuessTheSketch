@@ -2,6 +2,10 @@
 
 **Guess the Sketch** is an engaging Android app built with **Jetpack Compose** and **Kotlin**, integrating the power of OpenAI's **GPT-4 Vision Model**. Test your creativity and AI's recognition skills in a fun sketching game!
 
+## 🌐 Try the Game
+
+👉 **[Visit and Play](https://appetize.io/embed/b_ll3l6aehmudirl7dv7kyda2jii)** the game yourself!
+
 ## 🚀 Features
 - **Interactive Sketch Canvas:** Players are given a word and must sketch their interpretation on the canvas.
 - **AI Recognition:** Submit your sketch to the AI, which provides its top 5 guesses for what the drawing represents.
